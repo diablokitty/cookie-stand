@@ -27,6 +27,7 @@ h2{
 }
 h3{
   font-size: 1.5em;
+  margin: 30px 10px;
 }
 
 h1, h2, h3, h4 {
@@ -36,6 +37,34 @@ h1, h2, h3, h4 {
  .hours{
   list-style-type: square;
  }
+/* table styles taken from Canvas table*/
+
+ table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  margin: 10px;
+}
+
+th {
+  font-weight: bold;
+  text-align: left;
+  padding: 5px 10px;
+  border-bottom: 1px solid #444;
+  color: #444;
+  width: 50px;
+}
+td {
+  text-align: left;
+  padding: 5px 10px;
+  border-bottom: 1px solid #7223b2;
+  border-right: 1px solid #0e0e0d;
+}
+
+td:first-child {
+  border-left: 1px solid #444;
+  font-weight: bold;
+}
+
 
 #output {
   font-family: Arial, Helvetica, sans-serif;
