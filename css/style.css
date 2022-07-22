@@ -76,6 +76,20 @@ h1, h2, h3, h4 {
  .hours{
   list-style-type: square;
 }
+
+label {
+  display: block;
+}
+
+input {  
+  display:block;
+  margin-bottom: 10px;
+}
+select {
+  display: block;
+  margin-bottom: 10px;
+}
+
 /* table styles taken from Canvas table*/
 
  table {
