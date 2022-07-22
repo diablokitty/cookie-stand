@@ -24,9 +24,8 @@ function Store(location, min, max, avg) {
   };
   allLocations.push(this);
   this.randomAvgCookieSalesPerHour();
+  
   this.renderSales = function(){
-
-    
     let sum = totalByLocation(this);
     let output = `<tr><td> ${this.location}</td>`;
     for(let i=0; i<salesTimes.length; i++) {
@@ -48,7 +47,7 @@ let dubai = new Store('Dubai', 11, 38,3.7);
 let paris = new Store('Paris', 20, 38, 2.3);
 let lima = new Store('Lima', 2, 16, 4.6);
 
-console.log(allLocations);
+//console.log(allLocations);
 
 //Old object literals have been replaced by objects instantiated by the construtor. 
 
@@ -183,7 +182,7 @@ let output="";
 let computeHourlySalesTotal = function() {
   let totalCookieSalesPerHour =[];
   for(let i=0; i<salesTimes.length; i++) {
-    let hourTotal = 0;    
+    let hourTotal = 0;
     for(let j=0; j<allLocations.length; j++) {
       hourTotal += allLocations[j].cookieSalesPerHour[i]; 
     }
@@ -207,7 +206,7 @@ output+= `<th>Daily Location Totals</th></tr></thead>`;
 for(let i=0; i<allLocations.length; i++){
   output += allLocations[i].renderSales();
 }
-//renders hourly sales totals
+//renders hourly sales totals and all total sales
 output += `<tr><td>Totals:</td>`;
 for(let i=0; i<totalCookieSalesPerHour.length; i++) {
   output+=`<td>${totalCookieSalesPerHour[i]}</td>`;
@@ -226,3 +225,48 @@ output += `<td>${totalCookieSalesAll}</td></tr>`;
 // output += renderSales(paris);
 // output += renderSales(lima);
 document.getElementById("output").innerHTML=output;
+
+//determinging the cookie tossers
+
+let computeHourlyCookieTossers = function() {
+  let totalCookieTossersPerHour =[];
+  for(let i=0; i<allLocations.length; i++) {
+    let tosserTotal = 0;
+    let locationTossers =[];
+    for(let j=0; j<salesTimes.length; j++) {
+      tosserTotal = Math.floor(allLocations[i].cookieSalesPerHour[j]/20); 
+      if(tosserTotal<2){
+        tosserTotal =2;
+      }
+      locationTossers.push(tosserTotal);
+    }
+    totalCookieTossersPerHour.push(locationTossers);
+    //console.log(totalCookieTossersPerHour);
+  }
+
+  return totalCookieTossersPerHour;
+};
+
+let totalCookieTossersPerHour = computeHourlyCookieTossers();
+console.log(totalCookieTossersPerHour);
+
+output = '';
+
+//renders table head (times)
+output += `<thead><tr><th></th>`;
+for(let i=0; i<salesTimes.length; i++) {
+  output+=`<th>${salesTimes[i]}</th>`;
+}
+output+= `</tr></thead>`;
+
+for(let i=0; i<totalCookieTossersPerHour.length; i++) {
+//let sum = tossersByLocation(this);
+  output += `<tr><td> ${allLocations[i].location}</td>`;
+  for(let j=0; j<salesTimes.length; j++) {
+    output+=`<td> ${totalCookieTossersPerHour[i][j]} </td>`;
+  }
+  output += `</tr>`;
+ 
+}
+document.getElementById("output2").innerHTML=output;
+

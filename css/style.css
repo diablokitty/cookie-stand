@@ -27,7 +27,7 @@ h2{
 }
 h3{
   font-size: 1.5em;
-  margin-bottom: 30px;
+  margin: 30px 10px;
 }
 
 h1, h2, h3, h4 {
@@ -41,24 +41,28 @@ h1, h2, h3, h4 {
 
  table {
   border-collapse: collapse;
-  border-spacing: 0
+  border-spacing: 0;
+  margin: 10px;
 }
 
 th {
+  font-weight: bold;
   text-align: left;
   padding: 5px 10px;
-  border-bottom: 1px solid #e5e5e5;
-  color: #444
+  border-bottom: 1px solid #444;
+  color: #444;
+  width: 50px;
 }
 td {
   text-align: left;
   padding: 5px 10px;
   border-bottom: 1px solid #7223b2;
-  border-right: 1px solid #0e0e0d
+  border-right: 1px solid #0e0e0d;
 }
 
 td:first-child {
-  border-left: 1px solid #ffcc00
+  border-left: 1px solid #444;
+  font-weight: bold;
 }
 
 
