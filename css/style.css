@@ -34,9 +34,48 @@ h1, h2, h3, h4 {
   font-family: 'Lato', sans-serif;
   color: rgb(221, 44, 74);
 }
+
+#cookielove {
+  width: 960px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+#cookielove img {
+
+  width: 300px;
+  height: 100px;
+  border: 2px solid darkred;
+  margin: 10px;
+
+} 
+
+#cookielove article{
+
+  width: 400px;
+  margin: 10px;
+}
+#locations {
+  display: flexbox;
+  justify-content: center;
+}
+
+#locations section {
+  display: inline;
+  justify-content: space-around;
+}
+
+#locations section img{
+  width: 100px;
+  border: 2px solid darkred;
+  margin: 10px;
+}
+
  .hours{
   list-style-type: square;
- }
+}
 /* table styles taken from Canvas table*/
 
  table {
