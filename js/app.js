@@ -3,10 +3,15 @@ let form = document.getElementById('locationForm');
 function handleSubmit(event) {
   event.preventDefault();
   let location = event.target.location.value;
-  let min = event.target.min.value;
-  let max = event.target.max.value;
-  let avg = event.target.avg.value;
-  console.log(location, min, max, avg);
+  let min = parseInt(event.target.min.value);
+  let max = parseInt(event.target.max.value);
+  let avg = parseInt(event.target.avg.value);
+  
+  
+  let newStore = new Store(location, min, max, avg);
+  console.log(newStore);
+
+  return newStore;
 }
 
 form.addEventListener('submit', handleSubmit);
@@ -62,6 +67,7 @@ let tokyo = new Store('Tokyo', 3, 24, 1.2);
 let dubai = new Store('Dubai', 11, 38,3.7);
 let paris = new Store('Paris', 20, 38, 2.3);
 let lima = new Store('Lima', 2, 16, 4.6);
+
 
 
 
