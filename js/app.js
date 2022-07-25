@@ -7,15 +7,29 @@ function handleSubmit(event) {
   let max = parseInt(event.target.max.value);
   let avg = parseInt(event.target.avg.value);
   
-  
   let newStore = new Store(location, min, max, avg);
   console.log(newStore);
 
+  let newOutput = buildTable();
+  document.getElementById("output").innerHTML=newOutput;
+  let totalCookieTossersPerHour = computeHourlyCookieTossers();
+  let newOutput2= tosserTable(totalCookieTossersPerHour);
+  document.getElementById("output2").innerHTML=newOutput2;
+  form.reset();
+
   return newStore;
+
+  //remove all totals rows
+  //construct new data row for new object
+  //recalculate total row for hourly data
+  //recalculate total sales
+  //add new row for new object
+  //add reconstructed rows for totals
 }
 
-form.addEventListener('submit', handleSubmit);
 
+
+form.addEventListener('submit', handleSubmit);
 
 let salesTimes = ["6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm"];
 let allLocations =[];
@@ -41,11 +55,13 @@ function Store(location, min, max, avg) {
       let saleData = Math.floor(this.randomAvgCustomer() * this.avg);
       this.cookieSalesPerHour.push(saleData);
 
-    } 
+    }
   };
   allLocations.push(this);
   this.randomAvgCookieSalesPerHour();
-  
+
+  console.log(allLocations);
+
   this.renderSales = function(){
     let sum = totalByLocation(this);
     let output = `<tr><td> ${this.location}</td>`;
@@ -67,8 +83,6 @@ let tokyo = new Store('Tokyo', 3, 24, 1.2);
 let dubai = new Store('Dubai', 11, 38,3.7);
 let paris = new Store('Paris', 20, 38, 2.3);
 let lima = new Store('Lima', 2, 16, 4.6);
-
-
 
 
 //totalByLocation function gives total sales per city
@@ -100,40 +114,45 @@ let computeHourlySalesTotal = function() {
 
 let totalCookieSalesPerHour = computeHourlySalesTotal();
 
+function buildTable() {
 //renders table head (times)
-output += `<thead><tr><th></th>`;
-for(let i=0; i<salesTimes.length; i++) {
-  output+=`<th>${salesTimes[i]}</th>`;
-}
-output+= `<th>Daily Location Totals</th></tr></thead>`;
+  let output = `<thead><tr><th></th>`;
+  for(let i=0; i<salesTimes.length; i++) {
+    output+=`<th>${salesTimes[i]}</th>`;
+  }
+  output+= `<th>Daily Location Totals</th></tr></thead>`;
 
-//renders table data 
-for(let i=0; i<allLocations.length; i++){
-  output += allLocations[i].renderSales();
-}
-//renders hourly sales totals and all total sales
-output += `<tr><td>Totals:</td>`;
-for(let i=0; i<totalCookieSalesPerHour.length; i++) {
-  output+=`<td>${totalCookieSalesPerHour[i]}</td>`;
-}
-let totalCookieSalesAll = 0;
-for(let i=0; i<totalCookieSalesPerHour.length; i++) {
-  totalCookieSalesAll += totalCookieSalesPerHour[i];
-}
+  //renders table data 
+  for(let i=0; i<allLocations.length; i++){
+    output += allLocations[i].renderSales();
+  }
+  //renders hourly sales totals and all total sales
+  output += `<tr><td>Totals:</td>`;
+  for(let i=0; i<totalCookieSalesPerHour.length; i++) {
+    output+=`<td>${totalCookieSalesPerHour[i]}</td>`;
+  }
+  let totalCookieSalesAll = 0;
+  for(let i=0; i<totalCookieSalesPerHour.length; i++) {
+    totalCookieSalesAll += totalCookieSalesPerHour[i];
+  }
 
-output += `<td>${totalCookieSalesAll}</td></tr>`;
-
+  output += `<td>${totalCookieSalesAll}</td></tr>`;
+  return output;  
+}
 // individual function calls replaced by loop
 // output += renderSales(seattle);
 // output += renderSales(tokyo);
 // output += renderSales(dubai);
 // output += renderSales(paris);
 // output += renderSales(lima);
+output =buildTable();
 document.getElementById("output").innerHTML=output;
+
 
 //determinging the cookie tossers
 
-let computeHourlyCookieTossers = function() {
+
+function computeHourlyCookieTossers() {
   let totalCookieTossersPerHour =[];
   for(let i=0; i<allLocations.length; i++) {
     let tosserTotal = 0;
@@ -155,6 +174,7 @@ let computeHourlyCookieTossers = function() {
 let totalCookieTossersPerHour = computeHourlyCookieTossers();
 console.log(totalCookieTossersPerHour);
 
+function tosserTable(totalCookieTossersPerHour) {
 output = '';
 
 //renders table head (times)
@@ -165,13 +185,15 @@ for(let i=0; i<salesTimes.length; i++) {
 output+= `</tr></thead>`;
 
 for(let i=0; i<totalCookieTossersPerHour.length; i++) {
-//let sum = tossersByLocation(this);
-  output += `<tr><td> ${allLocations[i].location}</td>`;
-  for(let j=0; j<salesTimes.length; j++) {
-    output+=`<td> ${totalCookieTossersPerHour[i][j]} </td>`;
+  //let sum = tossersByLocation(this);
+    output += `<tr><td> ${allLocations[i].location}</td>`;
+    for(let j=0; j<salesTimes.length; j++) {
+      output+=`<td> ${totalCookieTossersPerHour[i][j]} </td>`;
+    }
+    output += `</tr>`;
   }
-  output += `</tr>`;
- 
+  return output;
 }
-document.getElementById("output2").innerHTML=output;
+let output2 = tosserTable(totalCookieTossersPerHour);
+document.getElementById("output2").innerHTML=output2;
 
