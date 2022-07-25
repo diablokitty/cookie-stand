@@ -1,6 +1,17 @@
 body{
   background-color: rgb(236, 214, 217);
 }
+img{
+
+  width: 300px;
+}
+
+#pats-family {
+
+  border: 3px solid red;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
 
 header {
   background-color: azure;
@@ -76,6 +87,20 @@ h1, h2, h3, h4 {
  .hours{
   list-style-type: square;
 }
+
+label {
+  display: block;
+}
+
+input {  
+  display:block;
+  margin-bottom: 10px;
+}
+select {
+  display: block;
+  margin-bottom: 10px;
+}
+
 /* table styles taken from Canvas table*/
 
  table {

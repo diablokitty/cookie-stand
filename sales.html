@@ -1,33 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Pat's Salmon Cookies Sales Tracking</title>
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<!--Lab Class 9 HTML Form-->
+<img src="/images/salmon.png" alt="big salmon">
+
+<form id="locationForm">
+
   <head>
-    <meta charset="UTF-8">
-    <title>Pat's Salmon Cookies Sales Tracking</title>
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
+    <h3>New Location Entry Form</h3>
   </head>
+  <fieldset>
+    <label> Name of City
+      <input type="text" name="location">
+    </label>
+    <label> Minimum Cookies Sold
+      <input type="text" name="min">
+    </label>
+    <label> Maximum Cookies Sold
+      <input type="text" name="max">
+    </label>
+    <label> Average Cookies Sold
+      <input type="text" name="avg">
+    </label>
+  </fieldset>
+  <button type="submit">Submit</button>
+</form>
 
-  <!--
+
+<!--
     Lab Class 6 Salmon Cookies -->
-  
-  <body>
 
-    <h3>Pat's Cookie Sales Data</h3>
-    <table id="output">
+<body>
 
-  
-
-    </table>
-    <h3>Pat's Staffing Data</h3>
-    <table id="output2">
-
-  
-
-    </table>
+  <h3>Pat's Cookie Sales Data</h3>
+  <table id="output">
 
 
-<script src = "js/app.js"></script>
-    <a href="index.html">Main Page</a>
-  </body>
+
+  </table>
+
+  <img id="pats-family" src="/images/family.jpg" alt="Pat's family">
+  <h3>Pat's Staffing Data</h3>
+  <table id="output2">
+
+
+
+  </table>
+
+
+  <script src="js/app.js"></script>
+  <a href="index.html">Main Page</a>
+</body>
+
 </html>
-

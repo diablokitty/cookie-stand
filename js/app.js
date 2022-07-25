@@ -1,6 +1,27 @@
+let form = document.getElementById('locationForm');
+
+function handleSubmit(event) {
+  event.preventDefault();
+  let location = event.target.location.value;
+  let min = parseInt(event.target.min.value);
+  let max = parseInt(event.target.max.value);
+  let avg = parseInt(event.target.avg.value);
+  
+  
+  let newStore = new Store(location, min, max, avg);
+  console.log(newStore);
+
+  return newStore;
+}
+
+form.addEventListener('submit', handleSubmit);
+
+
 let salesTimes = ["6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm"];
 let allLocations =[];
 
+
+// store object construtor
 function Store(location, min, max, avg) {
   this.location = location;
   this.min = min;
@@ -38,7 +59,7 @@ function Store(location, min, max, avg) {
 
 }
 
-
+// instantiate the location objects
 let seattle = new Store('Seattle', 23, 65, 6.3);
 //console.log(seattle);
 let tokyo = new Store('Tokyo', 3, 24, 1.2);
@@ -47,112 +68,8 @@ let dubai = new Store('Dubai', 11, 38,3.7);
 let paris = new Store('Paris', 20, 38, 2.3);
 let lima = new Store('Lima', 2, 16, 4.6);
 
-//console.log(allLocations);
 
-//Old object literals have been replaced by objects instantiated by the construtor. 
 
-//const seattle = {
-//   min:23,
-//   max:65,
-//   avg: 6.3,
-
-//   randomAvgCustomer: function() {
-//     return this.min + Math.floor((this.max - this.min +1) * Math.random());
-
-//   },
-//   cookieSalesPerHour: [],
-
-//   randomAvgCookieSalesPerHour: function() {
-    
-//     for(let i=0; i<salesTimes.length; i++) {
-//       let saleData = Math.floor(this.randomAvgCustomer() * this.avg);
-//       this.cookieSalesPerHour.push(saleData);
-//     }
-//   }
-// };
-
-// const tokyo = {
-//   min: 3,
-//   max: 24,
-//   avg: 1.2,
-
-//   randomAvgCustomer: function() {
-//     return this.min + Math.floor((this.max - this.min +1) * Math.random());
-
-//   },
-//   cookieSalesPerHour: [],
-
-//   randomAvgCookieSalesPerHour: function() {
-    
-//     for(let i=0; i<salesTimes.length; i++) {
-//       let saleData = Math.floor(this.randomAvgCustomer() * this.avg);
-//       this.cookieSalesPerHour.push(saleData);
-//     }
-//   }
-      
-// };
-
-// const dubai = {
-//   min: 11,
-//   max: 38,
-//   avg: 3.7,
-
-//   randomAvgCustomer: function() {
-//     return this.min + Math.floor((this.max - this.min +1) * Math.random());
-
-//   },
-//   cookieSalesPerHour: [],
-
-//   randomAvgCookieSalesPerHour: function() {
-    
-//     for(let i=0; i<salesTimes.length; i++) {
-//       let saleData = Math.floor(this.randomAvgCustomer() * this.avg);
-//       this.cookieSalesPerHour.push(saleData);
-//     }
-//   }
-
-// };
-
-// const paris = {
-//   min: 20,
-//   max: 38,
-//   avg: 2.3,
-
-//   randomAvgCustomer: function() {
-//     return this.min + Math.floor((this.max - this.min +1) * Math.random());
-//   },
-//   cookieSalesPerHour: [],
-
-//   randomAvgCookieSalesPerHour: function() {
-    
-//     for(let i=0; i<salesTimes.length; i++) {
-//       let saleData = Math.floor(this.randomAvgCustomer() * this.avg);
-//       this.cookieSalesPerHour.push(saleData);
-//     }
-//   }
-
-// };
-
-// const lima = {
-//   min: 2,
-//   max: 16,
-//   avg: 4.6,
-
-//   randomAvgCustomer: function() {
-//     return this.min + Math.floor((this.max - this.min +1) * Math.random());
-//   },
-
-//   cookieSalesPerHour: [],
-
-//   randomAvgCookieSalesPerHour: function() {
-    
-//     for(let i=0; i<salesTimes.length; i++) {
-//       let saleData = Math.floor(this.randomAvgCustomer() * this.avg);
-//       this.cookieSalesPerHour.push(saleData);
-//     }
-//   }
- 
-// };
 
 //totalByLocation function gives total sales per city
 let totalByLocation = function(city){
@@ -163,20 +80,8 @@ let totalByLocation = function(city){
   return totalSalesByLocation;
 };
 
-// Old function for rendering sales data replaced by method in constructor
+//   return output
 
-// let renderSales = function(city){
-
-//   city.randomAvgCookieSalesPerHour();
-//   let sum = totalByLocation(city);
-//   let output = "";
-//   for(let i=0; i<salesTimes.length; i++) {
-//     output+=`<td>${salesTimes[i]}: ${city.cookieSalesPerHour[i]} cookies. </td>`;
-//   }
-//   output += `<td>Total Sales: ${sum}</td>`;
-  
-//   return output;
-// };
 let output="";
 
 let computeHourlySalesTotal = function() {
