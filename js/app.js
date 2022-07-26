@@ -6,15 +6,19 @@ function handleSubmit(event) {
   let min = parseInt(event.target.min.value);
   let max = parseInt(event.target.max.value);
   let avg = parseInt(event.target.avg.value);
-  
+
   let newStore = new Store(location, min, max, avg);
   console.log(newStore);
 
-  let newOutput = buildTable();
-  document.getElementById("output").innerHTML=newOutput;
-  let totalCookieTossersPerHour = computeHourlyCookieTossers();
+  totalCookieSalesPerHour = computeHourlySalesTotal();
+
+  let newOutput = buildTable(totalCookieSalesPerHour);
+  document.getElementById('output').innerHTML=newOutput;
+  let totalCookieTossersPerHour = computeHourlyCookieTossers(totalCookieSalesPerHour);
   let newOutput2= tosserTable(totalCookieTossersPerHour);
-  document.getElementById("output2").innerHTML=newOutput2;
+  let today = new Date();
+  newOutput2 += `<tfoot>${location} added on ${today}</tfoot>`;
+  document.getElementById('output2').innerHTML=newOutput2;
   form.reset();
 
   return newStore;
@@ -31,7 +35,7 @@ function handleSubmit(event) {
 
 form.addEventListener('submit', handleSubmit);
 
-let salesTimes = ["6am","7am","8am","9am","10am","11am","12pm","1pm","2pm","3pm","4pm","5pm","6pm","7pm"];
+let salesTimes = ['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm'];
 let allLocations =[];
 
 
@@ -43,14 +47,14 @@ function Store(location, min, max, avg) {
   this.avg = avg;
 
   this.randomAvgCustomer = function() {
-  
+
     return this.min + Math.floor((this.max - this.min +1) * Math.random());
 
   };
-  this.cookieSalesPerHour = []
+  this.cookieSalesPerHour = [];
 
   this.randomAvgCookieSalesPerHour = function() {
-    
+
     for(let i=0; i<salesTimes.length; i++) {
       let saleData = Math.floor(this.randomAvgCustomer() * this.avg);
       this.cookieSalesPerHour.push(saleData);
@@ -69,7 +73,7 @@ function Store(location, min, max, avg) {
       output+=`<td> ${this.cookieSalesPerHour[i]} </td>`;
     }
     output += `<td> ${sum}</td></tr>`;
-    
+
     return output;
   };
 
@@ -96,25 +100,27 @@ let totalByLocation = function(city){
 
 //   return output
 
-let output="";
+//compute hourly sales total
 
-let computeHourlySalesTotal = function() {
+function computeHourlySalesTotal() {
   let totalCookieSalesPerHour =[];
   for(let i=0; i<salesTimes.length; i++) {
     let hourTotal = 0;
     for(let j=0; j<allLocations.length; j++) {
-      hourTotal += allLocations[j].cookieSalesPerHour[i]; 
+      hourTotal += allLocations[j].cookieSalesPerHour[i];
     }
     totalCookieSalesPerHour.push(hourTotal);
-    console.log(totalCookieSalesPerHour);
+    //console.log(totalCookieSalesPerHour);
   }
 
   return totalCookieSalesPerHour;
-};
+}
 
 let totalCookieSalesPerHour = computeHourlySalesTotal();
 
-function buildTable() {
+let output='';
+
+function buildTable(totalCookieSalesPerHour) {
 //renders table head (times)
   let output = `<thead><tr><th></th>`;
   for(let i=0; i<salesTimes.length; i++) {
@@ -135,9 +141,10 @@ function buildTable() {
   for(let i=0; i<totalCookieSalesPerHour.length; i++) {
     totalCookieSalesAll += totalCookieSalesPerHour[i];
   }
+  console.log(totalCookieSalesAll);
 
   output += `<td>${totalCookieSalesAll}</td></tr>`;
-  return output;  
+  return output;
 }
 // individual function calls replaced by loop
 // output += renderSales(seattle);
@@ -145,11 +152,12 @@ function buildTable() {
 // output += renderSales(dubai);
 // output += renderSales(paris);
 // output += renderSales(lima);
-output =buildTable();
-document.getElementById("output").innerHTML=output;
+
+output = buildTable(totalCookieSalesPerHour);
+document.getElementById('output').innerHTML=output;
 
 
-//determinging the cookie tossers
+//determining the cookie tossers
 
 
 function computeHourlyCookieTossers() {
@@ -169,23 +177,23 @@ function computeHourlyCookieTossers() {
   }
 
   return totalCookieTossersPerHour;
-};
+}
 
 let totalCookieTossersPerHour = computeHourlyCookieTossers();
 console.log(totalCookieTossersPerHour);
 
 function tosserTable(totalCookieTossersPerHour) {
-output = '';
+  output = '';
 
-//renders table head (times)
-output += `<thead><tr><th></th>`;
-for(let i=0; i<salesTimes.length; i++) {
-  output+=`<th>${salesTimes[i]}</th>`;
-}
-output+= `</tr></thead>`;
+  //renders table head (times)
+  output += `<thead><tr><th></th>`;
+  for(let i=0; i<salesTimes.length; i++) {
+    output+=`<th>${salesTimes[i]}</th>`;
+  }
+  output+= `</tr></thead>`;
 
-for(let i=0; i<totalCookieTossersPerHour.length; i++) {
-  //let sum = tossersByLocation(this);
+  for(let i=0; i<totalCookieTossersPerHour.length; i++) {
+    //let sum = tossersByLocation(this);
     output += `<tr><td> ${allLocations[i].location}</td>`;
     for(let j=0; j<salesTimes.length; j++) {
       output+=`<td> ${totalCookieTossersPerHour[i][j]} </td>`;
@@ -195,5 +203,5 @@ for(let i=0; i<totalCookieTossersPerHour.length; i++) {
   return output;
 }
 let output2 = tosserTable(totalCookieTossersPerHour);
-document.getElementById("output2").innerHTML=output2;
+document.getElementById('output2').innerHTML=output2;
 
